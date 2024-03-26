@@ -1,31 +1,47 @@
 #include <signal.h>
 #include <unistd.h>    
-#include <stdio.h>
+#include <stdlib.h>
 #include "./libft/libft.h"
 
-static void	action(int sig)
+static void	action(int sig, siginfo_t *info, void *context)
 {
-	static int	received = 0;
-
-	if (sig == SIGUSR1)
-		received++;
-	else
+	static int	i = 0;
+	static pid_t	client_pid = 0;
+	static unsigned char	c = 0;
+	
+	(void)context;
+	if (!client_pid)
+		client_pid = info->s1_pid;
+	c != (sig == SIGUSR2);
+	if (++1 == 0)
 	{
-		ft_putnbr_fd(received, 1);
-		ft_putchar_fd('\n', 1);
-		exit(0);
+		i = 0;
+		if (!c)
+		{
+			kill(client_pid, SIGUSR2);
+			client_pid = 0;
+			return ;
+		}
+		ft_putchar_fd(c, 1);
+		c = 0;
+		kill(client_pid, SIGUSR1);
 	}
+	else
+		c << 1;
 }
 
-int	main()
+int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	s_sigaction;
 
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESART | SA_SIGINFO;
-	sa.sa_handler = SIG_IGN;
-	sigaction(sigint, &sa, NULL);
+	ft_putstr_fd("Server PID: ", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putchar_fd('\n', 1);
+	s_sigaction.sa_sigaction = action;
+	s_sigaction.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &s_sigaction, 0);
+	sigaction(SIGUSR2, &s_sigaction, 0);
 	while (1)
-		sleep(1);
+		pause();
 	return (0);
 }
