@@ -3,7 +3,8 @@
         "tab.activeBorderTop": "#FA9E9E"
     },
     "files.associations": {
-        "signal.h": "c"
+        "signal.h": "c",
+        "*.o": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
