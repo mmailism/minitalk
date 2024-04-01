@@ -1,6 +1,47 @@
 #include "minitalk.h"
 #include <stdio.h>
 
+int	ft_morse(int pid, int c)
+{
+	int	bit;
+
+	bit = 7;
+	while (bit != -1)
+	{
+		if ((c >> bit) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(300);
+		bit--;
+	}
+	return (0);
+}
+
+int	main(int argc, char *argv[])
+{
+	int				pid;
+	unsigned char	*str;
+
+	if (argc == 3)
+	{
+		pid = ft_atoi(argv[1]);
+		printf("pid %s\n", argv[1]);
+		str = (unsigned char *)argv[2];
+		while (*str)
+		{
+			ft_morse(pid,*str++);
+			// free(str);
+		}
+		// free(str);
+	}
+	else
+	{
+		write(1, "ERROR, INVALID ARGS\n", 20);
+	}
+	return (0);
+}
+
 // CLIENT.C file
 
 /** global static int variable. it will help us note 
@@ -70,57 +111,57 @@
 // 	return (0);
 // }
 
-static void	action(int sig)
-{
-	if (sig == SIGUSR2)
-		printf("Received sig from Server.\n");
-}
+// static void	action(int sig)
+// {
+// 	if (sig == SIGUSR2)
+// 		printf("Received sig from Server.\n");
+// }
 
-static void	send_to_server(int pid, char *str)
-{
-	int		i;
-	char	c;
+// static void	send_to_server(int pid, char *str)
+// {
+// 	int		i;
+// 	char	c;
 
-	while (*str)
-	{
-		i = 8;
-		c = *str++;
-		while (i--)
-		{
-			if (c >> i & 1)
-			{
-				if (kill(pid, SIGUSR2) == -1)
-					exit (1);
-			}
-			else
-			{
-				if (kill(pid, SIGUSR1) == -1)
-					exit (1);
-			}
-			usleep(300);
-		}
-	}
-	exit (0);
-}
+// 	while (*str)
+// 	{
+// 		i = 8;
+// 		c = *str++;
+// 		while (i--)
+// 		{
+// 			if (c >> i & 1)
+// 			{
+// 				if (kill(pid, SIGUSR2) == -1)
+// 					exit (1);
+// 			}
+// 			else
+// 			{
+// 				if (kill(pid, SIGUSR1) == -1)
+// 					exit (1);
+// 			}
+// 			usleep(300);
+// 		}
+// 	}
+// 	exit (0);
+// }
 
-int	main(int argc, char **argv)
-{
-	int	i;
+// int	main(int argc, char **argv)
+// {
+// 	int	i;
 
-	i = 0;
-	if (argc != 3 || !strlen(argv[2]))
-		printf("Usage : ./clinet ServerPID Message.");
-	while (argv[1][i])
-	{
-		if (!ft_isdigit(argv[1][i]))
-			printf("Server PID not digit.");
-		i++;
-	}
-	printf("Client PID : %d\n", getpid());
-	signal(SIGUSR1, action);
-	signal(SIGUSR2, action);
-	send_to_server(ft_atoi(argv[1]), argv[2]);
-	while (1)
-		usleep(300);
-	return (0);
-}
+// 	i = 0;
+// 	if (argc != 3 || !strlen(argv[2]))
+// 		printf("Usage : ./clinet ServerPID Message.");
+// 	while (argv[1][i])
+// 	{
+// 		if (!ft_isdigit(argv[1][i]))
+// 			printf("Server PID not digit.");
+// 		i++;
+// 	}
+// 	printf("Client PID : %d\n", getpid());
+// 	signal(SIGUSR1, action);
+// 	signal(SIGUSR2, action);
+// 	send_to_server(ft_atoi(argv[1]), argv[2]);
+// 	while (1)
+// 		usleep(300);
+// 	return (0);
+// }
