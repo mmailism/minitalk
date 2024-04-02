@@ -40,6 +40,6 @@ int	main(void)
 	{
 		sigaction(SIGUSR1, &sigact, NULL);
 		sigaction(SIGUSR2, &sigact, NULL);
-		usleep(300);
+		sleep(300);
 	}
 }
