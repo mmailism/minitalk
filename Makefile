@@ -12,8 +12,7 @@ OBJS = $(SRC:%.c=.o)
 all: $(NAME)
 
 $(all): $(OBJS)
-		$(MAKE) -C ./libft
-		$(CC) $ (CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+		$(MAKE) -C ./libft $(CC) $ (CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 clean: 
 		$(MAKE) clean -C ./libft
