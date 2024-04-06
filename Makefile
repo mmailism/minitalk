@@ -1,6 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I minitalk.h
+CFLAGS = -Wall -Wextra -Werror -I minitalk.h
 LIBFT = ./libft/libft.a
 RM = rm -rf
 NAME = server client
@@ -23,10 +22,12 @@ $(OBJS): %.o: %.c
 clean: 
 		$(MAKE) clean -C ./libft
 		$(RM) $(OBJS)
+		$(RM) server client
 
 fclean: clean
 		$(MAKE) fclean -C ./libft
 		$(RM) $(NAME)
+		$(RM) server client
 
 re: fclean all
 
