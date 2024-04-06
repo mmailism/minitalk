@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kpueankl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/06 14:31:26 by kpueankl          #+#    #+#             */
+/*   Updated: 2024/04/06 14:31:31 by kpueankl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 #include <signal.h>
-#include <asm-generic/signal-defs.h>
 
 void	ft_server_handler(int signum, siginfo_t *info, void *context)
 {

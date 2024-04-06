@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kpueankl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/06 14:30:44 by kpueankl          #+#    #+#             */
+/*   Updated: 2024/04/06 14:31:00 by kpueankl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 //funtion kill is sent a signal
@@ -26,7 +38,6 @@ int	main(int argc, char *argv[])
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		// printf("pid %d\n", pid);
 		str = (unsigned char *)argv[2];
 		while (*str)
 		{
@@ -37,4 +48,3 @@ int	main(int argc, char *argv[])
 		write(1, "ERROR, INVALID ARGS\n", 20);
 	return (0);
 }
-
